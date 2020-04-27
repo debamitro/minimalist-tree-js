@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+  <head>
+    <script src="src/minimalist-tree.js"> </script>
+    <script>
+      const data = [ "a","b","c" ];
+
+      document.addEventListener ('DOMContentLoaded', () => {
+        let aTree = MinimalistTree ( document.getElementById ('theTree') );
+      aTree.draw (() => data, (node) => {
+        if (node == "a")
+        {
+           return ["d","e"];
+        }
+        return [];
+      });
+      });
+    </script>
+  </head>
+  <body>
+    <div id="theTree">
+    </div>
+  </body>
+</html>
