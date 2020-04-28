@@ -5,8 +5,16 @@ Very very barebones tree written in vanilla JavaScript. The tree is nothing but 
 
 ```
 let aTree = MinimalistTree ( document.getElementById ('someDiv') );
-aTree.draw (function1 () { }, function2 (node) { });
+aTree.draw ({
+   getroots : function1 () { },
+   getchildren : function2 (node) { }
+});
 ```
 
 function1 returns the root node(s) of the tree
 function2 returns an array of child nodes given the parent node
+
+
+## Example
+
+See the file demo.html

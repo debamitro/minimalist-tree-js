@@ -1,7 +1,7 @@
 function MinimalistTree (container)
 {
     return {
-        draw : (getroots, getchildren) => expandOrCollapseNodes (container, getroots(), getchildren)
+        draw : (options) => expandOrCollapseNodes (container, options.getroots(), options.getchildren)
     }
 }
 
