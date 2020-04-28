@@ -1,21 +1,25 @@
 function MinimalistTree (container)
 {
     return {
-        draw : (options) => expandOrCollapseNodes (container, options.getroots(), options.getchildren)
+        draw : (options) => expandOrCollapseNodes (container, options)
     }
 }
 
-function addNode (parent, node, getchildren)
+function addNode (parent, node, options)
 {
     var li = document.createElement ('li');
 
-    li.appendChild (document.createTextNode (node));
+    li.appendChild (document.createTextNode (options.getlabel(node)));
 
-    const children = getchildren (node);
+    const children = options.getchildren (node);
     if (children != null && children.length > 0)
     {
         li.addEventListener ('click', (e) => {
-            expandOrCollapseNodes (li, children, getchildren);
+            expandOrCollapseNodes (li, {
+                getroots : () => children,
+                getchildren : options.getchildren,
+                getlabel : options.getlabel
+            });
             e.stopPropagation ();
         });
     }
@@ -27,7 +31,7 @@ function addNode (parent, node, getchildren)
     parent.appendChild (li);
 }
 
-function expandOrCollapseNodes (parent, nodes, getchildren)
+function expandOrCollapseNodes (parent, options)
 {
     var existingUls = parent.getElementsByTagName ('ul');
     if (existingUls.length > 0)
@@ -47,8 +51,8 @@ function expandOrCollapseNodes (parent, nodes, getchildren)
 
     // Create a new list for the nodes
     var ul = document.createElement ('ul');
-    nodes.forEach ( (node) => {
-        addNode (ul, node, getchildren);
+    options.getroots().forEach ( (node) => {
+        addNode (ul, node, options);
     });
     parent.appendChild (ul);
 }
